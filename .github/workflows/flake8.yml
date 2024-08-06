@@ -1,0 +1,21 @@
+name: Flake8
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: | 
+          pip install poetry
+          make install
+      - name: Check linting
+        run: make lint
