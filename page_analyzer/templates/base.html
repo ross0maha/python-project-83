@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+{% include 'includes/head.html' %}
+
+<body class="min-vh-100 d-flex flex-column">
+    
+<main class="flex-grow-1">
+        {% block content %}{% endblock %}
+</main>
+
+{% include 'includes/footer.html' %}
+
+</body>
+</html>
