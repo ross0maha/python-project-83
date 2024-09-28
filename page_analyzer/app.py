@@ -1,9 +1,16 @@
 import os
 from dotenv import load_dotenv
-from flask import Flask, render_template, request, redirect, url_for, flash
-import psycopg2
+from flask import (Flask,
+                   render_template,
+                   request,
+                   redirect,
+                   url_for,
+                   flash)
 from page_analyzer.utils import validate_url
-from page_analyzer.db_manager import get_urls, add_url, get_urls_by_name, get_urls_by_id
+from page_analyzer.db_manager import (get_urls,
+                                      add_url,
+                                      get_urls_by_name,
+                                      get_urls_by_id)
 
 
 load_dotenv()
@@ -23,11 +30,11 @@ def urls_list():
 
 
 @app.post('/urls')
-def add_site():    
+def add_site():
     url_name = request.form.get('url')
     error = validate_url(url_name).get('error')
     url = validate_url(url_name).get('url')
-    
+
     if error:
         flash(error, 'danger')
         return redirect(url_for('index'))

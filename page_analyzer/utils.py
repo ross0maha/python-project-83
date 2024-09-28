@@ -15,7 +15,7 @@ def validate_url(url):
             error = "URL обязателен"
         case url if get_urls_by_name(url):
             error = "Страница уже существует"
-    
+
     url_parsed = urlparse(url)
     url_name = f'{url_parsed.scheme}://{url_parsed.netloc}'
 
