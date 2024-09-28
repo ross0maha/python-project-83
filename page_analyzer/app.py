@@ -44,10 +44,10 @@ def add_site():
 
     url_id = get_urls_by_name(url).get('id')
 
-    return redirect(url_for('show_url', id=url_id))
+    return redirect(url_for('url_show', id=url_id))
 
 
 @app.get('/urls/<int:id>')
-def show_url(id):
+def url_show(id):
     url = get_urls_by_id(id)
     return render_template('url_id.html', url=url, id=id)
