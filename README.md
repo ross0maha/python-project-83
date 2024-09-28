@@ -9,9 +9,13 @@
 
 ## :link: [Demo on render.com](https://python-project-83-k000.onrender.com)
 
-Page Analyzer is a full-fledged application based on the **Flask** framework. Here we practice the basic principles of building modern sites on MVC-architecture: working with routing, request handlers and templating, interaction with the database.
+__*Анализатор страниц*__ представляет собой полноценное приложение, созданное на базе фреймворка **Flask**. Это приложение позволяет освоить и применить на практике основные принципы разработки современных сайтов, построенных на архитектуре **MVC**. В частности, в нём рассматриваются такие аспекты, как работа с роутингом, обработчиками запросов, шаблонизатором и взаимодействие с базой данных.
 
-Анализатор страниц – это полноценное приложение на базе фреймворка **Flask**. Здесь отрабатываются базовые принципы построения современных сайтов на MVC-архитектуре: работа с роутингом, обработчиками запросов и шаблонизатором, взаимодействие с базой данных.
+Анализатор страниц — это отличный инструмент для изучения основ веб-разработки с использованием Flask. Он помогает понять, как устроены современные сайты, и научиться создавать собственные веб-приложения. Данный проект является третьим проектом на курсе __*Python - разработчик*__ онлайн школы программирования **HEXLET**. 
+
+_**Page Analyzer**_ is a full-fledged application based on the **Flask framework**. This application allows you to learn and apply in practice the basic principles of developing modern sites built on the _MVC architecture_. In particular, it covers such aspects as working with routing, request handlers, templating and database interaction.
+
+The Page Analyzer is a great tool for learning the basics of web development using Flask. It helps you understand how modern websites are organized and learn how to build your own web applications. This project is the third project in the Python developer course of the online programming school _HEXLET_.
 
 ### :dizzy: Requirements
 - Python 3.11

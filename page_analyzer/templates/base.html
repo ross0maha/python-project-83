@@ -4,9 +4,16 @@
 {% include 'includes/head.html' %}
 
 <body class="min-vh-100 d-flex flex-column">
-    
+
+<header class="flex-shrink-0">
+        {% include 'includes/navbar.html' %}
+</header>
+
+        {% include 'includes/flash.html' %}
+
 <main class="flex-grow-1">
-        {% block content %}{% endblock %}
+        {% block content %}
+        {% endblock %}
 </main>
 
 {% include 'includes/footer.html' %}
