@@ -34,3 +34,17 @@ def add_url(name):
     with conn.cursor() as cursor:
         cursor.execute(f"INSERT INTO urls (name, created_at) VALUES ('{name}', NOW())")  # noqa E501
         conn.commit()
+
+
+def add_check(check):
+    conn = psycopg2.connect(DATABASE_URL)
+    with conn.cursor() as cursor:
+        cursor.execute(
+            "INSERT INTO url_checks (url_id, status_code, h1, title, description, created_at) VALUES (%s, %s, %s, %s, %s, %s)",
+            (check['url_id'],
+             check['status_code'],
+             check['h1'],
+             check['title'],
+             check['description'],
+             check['checked_at']))
+        conn.commit()
