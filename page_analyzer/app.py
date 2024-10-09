@@ -10,7 +10,9 @@ from page_analyzer.utils import validate_url
 from page_analyzer.db_manager import (get_urls,
                                       add_url,
                                       get_urls_by_name,
-                                      get_urls_by_id,)
+                                      get_urls_by_id,
+                                      add_url_check,
+                                      get_checks_by_url_id)
 
 
 load_dotenv()
@@ -50,10 +52,14 @@ def add_site():
 @app.get('/urls/<int:id>')
 def url_show(id):
     url = get_urls_by_id(id)
-    return render_template('url_id.html', url=url, id=id)
+    checks = get_checks_by_url_id(id)
+    return render_template('url_id.html', url=url, checks=checks,  id=id)
 
 
 @app.post('/urls/<int:id>/checks')
 def url_check(id):
-
+    check = get_urls_by_id(id)
+    check['url_id'] = id
+    add_url_check(check)
+    flash('Страница успешно проверена', 'success')
     return redirect(url_for('url_show', id=id))
