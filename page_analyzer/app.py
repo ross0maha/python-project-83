@@ -6,7 +6,7 @@ from flask import (Flask,
                    redirect,
                    url_for,
                    flash)
-from page_analyzer.utils import validate_url
+from page_analyzer.utils import validate_url, get_url_data
 from page_analyzer.db_manager import (get_urls,
                                       add_url,
                                       get_urls_by_name,
@@ -58,8 +58,16 @@ def url_show(id):
 
 @app.post('/urls/<int:id>/checks')
 def url_check(id):
-    check = get_urls_by_id(id)
-    check['url_id'] = id
-    add_url_check(check)
-    flash('Страница успешно проверена', 'success')
-    return redirect(url_for('url_show', id=id))
+    url = get_urls_by_id(id)['name']
+    if not url:
+        flash('Страница не найдена', 'danger')
+        return redirect(url_for('index'))
+    try:
+        check = get_url_data(url)
+        check['url_id'] = id
+        add_url_check(check)
+        flash('Страница успешно проверена', 'success')
+        return redirect(url_for('url_show', id=id))
+    except Exception:
+        flash('Произошла ошибка при проверке', 'danger')
+        return redirect(url_for('url_show', id=id))
