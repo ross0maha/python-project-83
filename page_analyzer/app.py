@@ -34,21 +34,21 @@ def add_site():
     db.add_url(url)
     flash("Страница успешно добавлена", "success")
 
-    url_id = db.get_urls_by_name(url).get("id")
+    url_id = db.get_urls_by(url).get("id")
 
     return redirect(url_for("url_show", id=url_id))
 
 
 @app.get("/urls/<int:id>")
 def url_show(id):
-    url = db.get_urls_by_id(id)
+    url = db.get_urls_by(id)
     checks = db.get_checks_by_url_id(id)
     return render_template("url_id.html", url=url, checks=checks, id=id)
 
 
 @app.post("/urls/<int:id>/checks")
 def url_check(id):
-    url = db.get_urls_by_id(id)["name"]
+    url = db.get_urls_by(id)["name"]
     if not url:
         flash("Страница не найдена", "danger")
         return redirect(url_for("index"))
