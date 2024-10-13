@@ -1,7 +1,7 @@
 import validators
 import requests
 from urllib.parse import urlparse
-from page_analyzer.db_manager import get_urls_by_name
+from page_analyzer.db_manager import get_urls_by
 from bs4 import BeautifulSoup
 
 
@@ -15,7 +15,7 @@ def validate_url(url):
             error = "Некорректный URL"
         case url if not url:
             error = "URL обязателен"
-        case url if get_urls_by_name(url):
+        case url if get_urls_by(url):
             error = "Страница уже существует"
 
     url_parsed = urlparse(url)

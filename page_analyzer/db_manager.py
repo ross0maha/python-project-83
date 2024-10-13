@@ -28,20 +28,18 @@ def get_urls():
         return cursor.fetchall()
 
 
-def get_urls_by_id(id):
-    request = "SELECT * FROM urls WHERE id = %s"
+def get_urls_by(value):
+
+    if isinstance(value, str):
+        request = "SELECT * FROM urls WHERE name = %s"
+    elif isinstance(value, int):
+        request = "SELECT * FROM urls WHERE id = %s"
+
     conn = psycopg2.connect(DATABASE_URL)
     with conn.cursor(cursor_factory=RealDictCursor) as cursor:
-        cursor.execute(request, (id,))
+        cursor.execute(request, (value,))
         return cursor.fetchone()
 
-
-def get_urls_by_name(name):
-    request = "SELECT * FROM urls WHERE name = %s"
-    conn = psycopg2.connect(DATABASE_URL)
-    with conn.cursor(cursor_factory=RealDictCursor) as cursor:
-        cursor.execute(request, (name,))
-        return cursor.fetchone()
 
 
 def add_url(name):
