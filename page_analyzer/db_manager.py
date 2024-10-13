@@ -41,7 +41,6 @@ def get_urls_by(value):
         return cursor.fetchone()
 
 
-
 def add_url(name):
     request = """
                 INSERT INTO urls (name, created_at)
