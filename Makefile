@@ -1,13 +1,14 @@
 install:
-		poetry install
+	poetry install
+
 
 dev:
-		poetry run flask --app page_analyzer:app run --debug --host 0.0.0.0 --port 5000
+	poetry run flask --app page_analyzer:app run --debug --host 0.0.0.0 --port 5000
 
 
 PORT ?= 8001
 start:
-		poetry run gunicorn -w 5 -b 0.0.0.0:$(PORT) page_analyzer:app
+	poetry run gunicorn -w 5 -b 0.0.0.0:$(PORT) page_analyzer:app
 
 
 lint:
@@ -18,5 +19,5 @@ check:
 	poetry check
 
 
-build:
+migrate:
 	bash page_analyzer/scripts/build.sh
