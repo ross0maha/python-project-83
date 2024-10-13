@@ -5,4 +5,4 @@ set -e
 echo "Running database migrations..."
 psql -a -d $DATABASE_URL -f database.sql
 
-echo "Build finished"
+echo "Migration finished"

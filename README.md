@@ -1,5 +1,5 @@
 ## Page analyzer project
----
+
 
 [![Actions Status](https://github.com/ross0maha/python-project-83/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/ross0maha/python-project-83/actions)
 [![Actions Status](https://github.com/ross0maha/python-project-83/actions/workflows/flake8.yml/badge.svg)](https://github.com/ross0maha/python-project-83/actions)
