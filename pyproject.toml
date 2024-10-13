@@ -11,7 +11,11 @@ packages = [
 
 
 [tool.poetry.dependencies]
+<<<<<<< HEAD
 python = "^3.10"
+=======
+python = ">=3.11,<4.0"
+>>>>>>> 119420a (fix CI/CD err with python version)
 
 [tool.poetry.group.web.dependencies]
 flask = "^3.0.3"

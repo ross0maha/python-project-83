@@ -756,5 +756,10 @@ watchdog = ["watchdog (>=2.3)"]
 
 [metadata]
 lock-version = "2.0"
+<<<<<<< HEAD
 python-versions = "^3.10"
 content-hash = "747fd7c04a5e30555f006a9366220ae6ceeeec7729d94cb6b2e9ad0037867209"
+=======
+python-versions = ">=3.11,<4.0"
+content-hash = "0e661f76f457fd13dfbc11f8c077677553189e48f56e1a8b95cd139a313a6393"
+>>>>>>> 119420a (fix CI/CD err with python version)
