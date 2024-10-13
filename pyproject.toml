@@ -17,7 +17,7 @@ python = "^3.10"
 flask = "^3.0.3"
 requests = "^2.32.3"
 bs4 = "^0.0.2"
-gunicorn = "^23.0.0"
+gunicorn = "^22.0.0"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^7.1.1"
