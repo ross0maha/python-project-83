@@ -24,6 +24,7 @@ def urls_list():
 @app.post("/urls")
 def add_site():
     url_name = request.form.get("url")
+
     error = validate_url(url_name).get("error")
     url = validate_url(url_name).get("url")
 

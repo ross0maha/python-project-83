@@ -5,22 +5,26 @@ from page_analyzer.db_manager import get_urls_by
 from bs4 import BeautifulSoup
 
 
-def validate_url(url):
-    error = None
-    url_parsed = None
-    match url:
-        case url if len(url) > 255:
-            error = "URL превышает 255 символов"
-        case url if not validators.url(url):
-            error = "Некорректный URL"
-        case url if not url:
-            error = "URL обязателен"
-        case url if get_urls_by(url):
-            error = "Страница уже существует"
-
+def normalize_url(url):
     url_parsed = urlparse(url)
     url_name = f"{url_parsed.scheme}://{url_parsed.netloc}"
+    return url_name
 
+
+def validate_url(url):
+    error = None
+    url_name = normalize_url(url)
+
+    match url_name:
+        case url_name if len(url_name) > 255:
+            error = "URL превышает 255 символов"
+        case url_name if not validators.url(url_name):
+            error = "Некорректный URL"
+        case url_name if not url_name:
+            error = "URL обязателен"
+        case url_name if get_urls_by(url_name):
+            error = "Страница уже существует"
+    print({"error": error, "url": url_name})
     return {"error": error, "url": url_name}
 
 
