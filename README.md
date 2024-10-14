@@ -14,7 +14,7 @@ __*Анализатор страниц*__ представляет собой п
 
 _**Page Analyzer**_ is a full-fledged application based on the **Flask framework**. This application allows you to learn and apply in practice the basic principles of developing modern sites built on the _MVC architecture_. In particular, it covers such aspects as working with routing, request handlers, templating and database interaction.
 
-The Page Analyzer is a great tool for learning the basics of web development using Flask. It helps you understand how modern websites are organized and learn how to build your own web applications. This project is the third project in the Python developer course of the online programming school _HEXLET_.
+The Page Analyzer is a great tool for learning the basics of web development using Flask. It helps you understand how modern websites are organized and learn how to build your own web applications. This project is the third project in the Python developer course of the online programming school **HEXLET**.
 
 ### :dizzy: Requirements
 - Python 3.11
