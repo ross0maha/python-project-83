@@ -28,6 +28,11 @@ def add_site():
     error = validate_url(url_name).get("error")
     url = validate_url(url_name).get("url")
 
+    if error == "Страница уже существует":
+        id = db.get_urls_by(url).get("id")
+        flash(error, "info")
+        return redirect(url_for("url_show", id=id))
+
     if error:
         flash(error, "danger")
         return render_template("index.html", url=url), 422
