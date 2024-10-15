@@ -24,7 +24,7 @@ def validate_url(url):
             error = "URL обязателен"
         case url_name if get_urls_by(url_name):
             error = "Страница уже существует"
-    print({"error": error, "url": url_name})
+
     return {"error": error, "url": url_name}
 
 

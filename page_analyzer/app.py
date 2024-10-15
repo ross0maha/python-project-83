@@ -30,7 +30,7 @@ def add_site():
 
     if error:
         flash(error, "danger")
-        return redirect(url_for("index"))
+        return render_template("index.html", url=url), 422
 
     db.add_url(url)
     flash("Страница успешно добавлена", "success")
