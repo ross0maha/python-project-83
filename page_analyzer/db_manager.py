@@ -3,6 +3,11 @@ from psycopg2.extras import RealDictCursor
 from page_analyzer.env_manager import get_database_url
 
 
+def db_connect():
+    conn = psycopg2.connect(get_database_url())
+    return conn
+
+
 def get_urls():
     request = """
                 SELECT DISTINCT ON (urls.id)
@@ -17,7 +22,8 @@ def get_urls():
                                         WHERE url_id = urls.id)
                     ORDER BY urls.id DESC
             """
-    conn = psycopg2.connect(get_database_url())
+
+    conn = db_connect()
     with conn.cursor(cursor_factory=RealDictCursor) as cursor:
         cursor.execute(request)
         return cursor.fetchall()
@@ -26,7 +32,7 @@ def get_urls():
 def get_urls_by_id(value):
     request = "SELECT * FROM urls WHERE id = %s"
 
-    conn = psycopg2.connect(get_database_url())
+    conn = db_connect()
     with conn.cursor(cursor_factory=RealDictCursor) as cursor:
         cursor.execute(request, (value,))
         return cursor.fetchone()
@@ -35,7 +41,7 @@ def get_urls_by_id(value):
 def get_urls_by_name(value):
     request = "SELECT * FROM urls WHERE name = %s"
 
-    conn = psycopg2.connect(get_database_url())
+    conn = db_connect()
     with conn.cursor(cursor_factory=RealDictCursor) as cursor:
         cursor.execute(request, (value,))
         return cursor.fetchone()
@@ -46,14 +52,14 @@ def add_url(name):
                 INSERT INTO urls (name, created_at)
                 VALUES (%s, NOW())
             """
-    conn = psycopg2.connect(get_database_url())
+    conn = db_connect()
     with conn.cursor() as cursor:
         cursor.execute(request, (name,))
         conn.commit()
 
 
 def add_url_check(check):
-    conn = psycopg2.connect(get_database_url())
+    conn = conn = db_connect()
     request = """
                     INSERT INTO url_checks (
                         url_id,
@@ -86,7 +92,7 @@ def get_checks_by_url_id(id):
                 WHERE url_id = %s
                 ORDER BY id DESC
             """
-    conn = psycopg2.connect(get_database_url())
+    conn = conn = db_connect()
     with conn.cursor(cursor_factory=RealDictCursor) as cursor:
         cursor.execute(request, (id,))
         return cursor.fetchall()
