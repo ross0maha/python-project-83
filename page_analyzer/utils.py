@@ -5,6 +5,9 @@ import page_analyzer.db_manager as db
 from bs4 import BeautifulSoup
 
 
+TIMEOUT = 10
+
+
 def normalize_url(url):
     url_parsed = urlparse(url)
     url_name = f"{url_parsed.scheme}://{url_parsed.netloc}"
@@ -47,7 +50,7 @@ def validate_url(url_name):
 
 def get_url_data(url):
     try:
-        req = requests.get(url, timeout=10)
+        req = requests.get(url, timeout=TIMEOUT)
     except requests.RequestException:
         return None
 

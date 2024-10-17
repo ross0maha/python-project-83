@@ -45,7 +45,7 @@ def add_site():
     db.add_url(url)
     flash("Страница успешно добавлена", "success")
 
-    url_id = db.get_urls_name(url).get("id")
+    url_id = db.get_urls_by_name(url).get("id")
 
     return redirect(url_for("url_show", id=url_id))
 
