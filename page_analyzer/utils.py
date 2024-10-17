@@ -5,16 +5,24 @@ import page_analyzer.db_manager as db
 from bs4 import BeautifulSoup
 
 
-TIMEOUT = 10
+TIMEOUT = 10  # timueout for http requests
 
 
-def normalize_url(url):
+def normalize_url(url) -> str:
+    '''Normalize url to name'''
     url_parsed = urlparse(url)
     url_name = f"{url_parsed.scheme}://{url_parsed.netloc}"
     return url_name
 
 
-def get_check(req):
+def get_check(req) -> dict:
+    '''
+    Get check data from request
+    status_code - http status code
+    h1 - h1 tag text
+    title - title tag text
+    description - description tag content
+    '''
     soup = BeautifulSoup(req.text, "html.parser")
     h1_tag = soup.find("h1")
     title_tag = soup.find("title")
@@ -32,7 +40,8 @@ def get_check(req):
     return check
 
 
-def validate_url(url_name):
+def validate_url(url_name) -> dict:
+    '''Validate url name and return errors and url'''
     error = None
 
     match url_name:
@@ -48,7 +57,8 @@ def validate_url(url_name):
     return {"error": error, "url": url_name}
 
 
-def get_url_data(url):
+def get_url_data(url) -> dict:
+    '''Get url data from request'''
     try:
         req = requests.get(url, timeout=TIMEOUT)
     except requests.RequestException:
