@@ -24,28 +24,27 @@ def add_site():
     url_name = request.form.get("url")
 
     url_name = normalize_url(url_name)
-    error = validate_url(url_name).get("error")
-    url = validate_url(url_name).get("url")
+    error = validate_url(url_name)
 
     match error:
         case "exists":
-            id = db.get_urls_by_name(url).get("id")
+            id = db.get_urls_by_name(url_name).get("id")
             flash("Страница уже существует", "info")
             return redirect(url_for("url_show", id=id))
         case "empty_url":
             flash("URL обязателен", "danger")
-            return render_template("index.html", url=url), 422
+            return render_template("index.html", url=url_name), 422
         case "incorrect_url":
             flash("Некорректный URL", "danger")
-            return render_template("index.html", url=url), 422
+            return render_template("index.html", url=url_name), 422
         case "size":
             flash("URL превышает 255 символов", "danger")
-            return render_template("index.html", url=url), 422
+            return render_template("index.html", url=url_name), 422
 
-    db.add_url(url)
+    db.add_url(url_name)
     flash("Страница успешно добавлена", "success")
 
-    url_id = db.get_urls_by_name(url).get("id")
+    url_id = db.get_urls_by_name(url_name).get("id")
 
     return redirect(url_for("url_show", id=url_id))
 

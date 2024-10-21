@@ -40,8 +40,8 @@ def get_check(req) -> dict:
     return check
 
 
-def validate_url(url_name) -> dict:
-    '''Validate url name and return errors and url'''
+def validate_url(url_name) -> str:
+    '''Validate url name and return errors'''
     error = None
 
     match url_name:
@@ -54,7 +54,7 @@ def validate_url(url_name) -> dict:
         case url_name if db.get_urls_by_name(url_name):
             error = "exists"
 
-    return {"error": error, "url": url_name}
+    return error
 
 
 def get_url_data(url) -> dict:
