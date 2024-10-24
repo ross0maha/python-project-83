@@ -62,9 +62,9 @@ def url_check(id):
     if not url:
         flash("Страница не найдена", "danger")
         return redirect(url_for("index"))
-
-    url_data: dict = get_url_data(url)
-    print(f'ERR >> {url_data}')
+    else:
+        url_data: dict = get_url_data(url)
+ 
     if not url_data:
         flash("Произошла ошибка при проверке", "danger")
         return redirect(url_for("url_show", id=id))

@@ -62,7 +62,7 @@ def get_url_data(url) -> dict:
     try:
         request = requests.get(url, timeout=TIMEOUT)
     except requests.RequestException as error:
-        return {"error": str(error)}
+        return None
 
     if request.status_code == 200:
         check = get_check(request)
