@@ -15,16 +15,16 @@ def index():
 
 @app.get("/urls")
 def urls_list():
-    urls = db.get_urls()
+    urls: list = db.get_urls()
     return render_template("/urls.html", urls=urls)
 
 
 @app.post("/urls")
 def add_site():
-    url_name = request.form.get("url")
+    url_name: str = request.form.get("url")
 
-    url_name = normalize_url(url_name)
-    error = validate_url(url_name)
+    url_name: str = normalize_url(url_name)
+    error: str = validate_url(url_name)
 
     match error:
         case "exists":
@@ -44,30 +44,32 @@ def add_site():
     db.add_url(url_name)
     flash("Страница успешно добавлена", "success")
 
-    url_id = db.get_urls_by_name(url_name).get("id")
+    url_id: int = db.get_urls_by_name(url_name).get("id")
 
     return redirect(url_for("url_show", id=url_id))
 
 
 @app.get("/urls/<int:id>")
 def url_show(id):
-    url = db.get_urls_by_id(id)
-    checks = db.get_checks_by_url_id(id)
+    url: dict = db.get_urls_by_id(id)
+    checks: list = db.get_checks_by_url_id(id)
     return render_template("url_id.html", url=url, checks=checks, id=id)
 
 
 @app.post("/urls/<int:id>/checks")
 def url_check(id):
-    url = db.get_urls_by_id(id)["name"]
+    url: str = db.get_urls_by_id(id)["name"]
     if not url:
         flash("Страница не найдена", "danger")
         return redirect(url_for("index"))
-    try:
-        check = get_url_data(url)
-        check["url_id"] = id
-        db.add_url_check(check)
-        flash("Страница успешно проверена", "success")
-        return redirect(url_for("url_show", id=id))
-    except Exception:
+
+    url_data: dict = get_url_data(url)
+    print(f'ERR >> {url_data}')
+    if not url_data:
         flash("Произошла ошибка при проверке", "danger")
+        return redirect(url_for("url_show", id=id))
+    else:
+        url_data["url_id"] = id
+        db.add_url_check(url_data)
+        flash("Страница успешно проверена", "success")
         return redirect(url_for("url_show", id=id))

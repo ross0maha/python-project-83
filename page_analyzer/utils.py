@@ -15,7 +15,7 @@ def normalize_url(url) -> str:
     return url_name
 
 
-def get_check(req) -> dict:
+def get_check(request) -> dict:
     '''
     Get check data from request
     status_code - http status code
@@ -23,13 +23,13 @@ def get_check(req) -> dict:
     title - title tag text
     description - description tag content
     '''
-    soup = BeautifulSoup(req.text, "html.parser")
+    soup = BeautifulSoup(request.text, "html.parser")
     h1_tag = soup.find("h1")
     title_tag = soup.find("title")
     description_tag = soup.find("meta", attrs={"name": "description"})
 
     check = {
-        "status_code": req.status_code,
+        "status_code": request.status_code,
         "h1": h1_tag.text if h1_tag else "",
         "title": title_tag.text if title_tag else "",
         "description": (
@@ -60,10 +60,10 @@ def validate_url(url_name) -> str:
 def get_url_data(url) -> dict:
     '''Get url data from request'''
     try:
-        req = requests.get(url, timeout=TIMEOUT)
-    except requests.RequestException:
-        return None
+        request = requests.get(url, timeout=TIMEOUT)
+    except requests.RequestException as error:
+        return {"error": str(error)}
 
-    if req.status_code == 200:
-        check = get_check(req)
+    if request.status_code == 200:
+        check = get_check(request)
         return check

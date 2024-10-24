@@ -63,7 +63,7 @@ def add_url(name) -> None:
         conn.commit()
 
 
-def add_url_check(check) -> None:
+def add_url_check(url_data) -> None:
     '''Add url check to db'''
     conn = conn = db_connect()
     request = """
@@ -81,11 +81,11 @@ def add_url_check(check) -> None:
         cursor.execute(
             request,
             (
-                check["url_id"],
-                check["status_code"],
-                check["h1"],
-                check["title"],
-                check["description"],
+                url_data["url_id"],
+                url_data["status_code"],
+                url_data["h1"],
+                url_data["title"],
+                url_data["description"],
             ),
         )
         conn.commit()
