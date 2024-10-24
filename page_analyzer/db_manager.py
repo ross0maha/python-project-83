@@ -24,11 +24,12 @@ def get_urls() -> list:
                                         WHERE url_id = urls.id)
                     ORDER BY urls.id DESC
             """
-    
+
     conn = db_connect()
     with conn.cursor(cursor_factory=RealDictCursor) as cursor:
         cursor.execute(request)
         return cursor.fetchall()
+
 
 def get_urls_by_id(value) -> dict:
     '''Get url by id'''
@@ -64,7 +65,7 @@ def add_url(name) -> None:
 
 def add_url_check(url_data) -> None:
     '''Add url check to db'''
-    conn =  db_connect()
+    conn = db_connect()
     request = """
                     INSERT INTO url_checks (
                         url_id,
@@ -98,7 +99,7 @@ def get_checks_by_url_id(id) -> list:
                 WHERE url_id = %s
                 ORDER BY id DESC
             """
-    conn =  db_connect()
+    conn = db_connect()
     with conn.cursor(cursor_factory=RealDictCursor) as cursor:
         cursor.execute(request, (id,))
         return cursor.fetchall()
