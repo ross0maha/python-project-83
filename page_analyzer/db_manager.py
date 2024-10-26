@@ -24,7 +24,6 @@ def get_urls() -> list:
                                         WHERE url_id = urls.id)
                     ORDER BY urls.id DESC
             """
-
     conn = db_connect()
     with conn.cursor(cursor_factory=RealDictCursor) as cursor:
         cursor.execute(request)
@@ -94,7 +93,6 @@ def add_url_check(url_data) -> None:
 def get_checks_by_url_id(id) -> list:
     '''Get checks by url id'''
     request = """
-
                 SELECT * FROM url_checks
                 WHERE url_id = %s
                 ORDER BY id DESC
