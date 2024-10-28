@@ -3,12 +3,6 @@ import requests
 from urllib.parse import urlparse
 import page_analyzer.db_manager as db
 from bs4 import BeautifulSoup
-from page_analyzer.env_manager import get_request_timeout
-
-
-# set timueout for http requests
-
-REQUEST_TIMEOUT = get_request_timeout()
 
 
 def normalize_url(url: str) -> str:
@@ -61,7 +55,7 @@ def validate_url(url_name: str) -> str:
 def get_url_data(url: str) -> dict:
     """Get url data from request"""
     try:
-        request: requests.Response = requests.get(url, timeout=REQUEST_TIMEOUT)
+        request: requests.Response = requests.get(url, timeout=10)
     except requests.RequestException:
         return None
 
