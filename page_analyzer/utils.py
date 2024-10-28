@@ -3,19 +3,22 @@ import requests
 from urllib.parse import urlparse
 import page_analyzer.db_manager as db
 from bs4 import BeautifulSoup
+from page_analyzer.env_manager import get_request_timeout
 
 
-TIMEOUT = 10  # timueout for http requests
+# set timueout for http requests
+
+REQUEST_TIMEOUT = get_request_timeout()
 
 
-def normalize_url(url) -> str:
+def normalize_url(url: str) -> str:
     '''Normalize url to name'''
     url_parsed = urlparse(url)
     url_name = f"{url_parsed.scheme}://{url_parsed.netloc}"
     return url_name
 
 
-def get_check(request) -> dict:
+def get_check(request: requests.Response) -> dict:
     '''
     Get check data from request
     status_code - http status code
@@ -40,7 +43,7 @@ def get_check(request) -> dict:
     return check
 
 
-def validate_url(url_name) -> str:
+def validate_url(url_name: str) -> str:
     '''Validate url name and return errors'''
     error = None
 
@@ -57,13 +60,13 @@ def validate_url(url_name) -> str:
     return error
 
 
-def get_url_data(url) -> dict:
+def get_url_data(url: str) -> dict:
     '''Get url data from request'''
     try:
-        request = requests.get(url, timeout=TIMEOUT)
+        request: requests.Response = requests.get(url, timeout=REQUEST_TIMEOUT)
     except requests.RequestException:
         return None
 
     if request.status_code == 200:
-        check = get_check(request)
+        check: dict = get_check(request)
         return check
