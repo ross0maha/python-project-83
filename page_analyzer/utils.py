@@ -35,7 +35,7 @@ def get_check(request: requests.Response) -> dict:
         "status_code": request.status_code,
         "h1": h1_tag.text if h1_tag else "",
         "title": title_tag.text if title_tag else "",
-        "description": (description_tag.get("content") if description_tag else ""),
+        "description": (description_tag.get("content") if description_tag else ""), # noqa
     }
 
     return check
