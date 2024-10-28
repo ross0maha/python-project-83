@@ -21,4 +21,4 @@ def get_database_url() -> str:
 
 def get_request_timeout() -> int:
     """Get request timeout from .env file"""
-    return REQUEST_TIMEOUT
+    return int(REQUEST_TIMEOUT)
