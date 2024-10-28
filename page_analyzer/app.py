@@ -14,7 +14,7 @@ def index():
 
 
 @app.get("/urls")
-def urls_list():
+def urls_list() -> dict:
     urls: list = db.get_urls()
     return render_template("/urls.html", urls=urls)
 
@@ -50,26 +50,26 @@ def add_site():
 
 
 @app.get("/urls/<int:id>")
-def url_show(id):
+def url_show(id: int):
     url: dict = db.get_urls_by_id(id)
     checks: list = db.get_checks_by_url_id(id)
     return render_template("url_id.html", url=url, checks=checks, id=id)
 
 
 @app.post("/urls/<int:id>/checks")
-def url_check(id):
+def url_check(id: int):
     url: str = db.get_urls_by_id(id)["name"]
     if not url:
         flash("Страница не найдена", "danger")
         return redirect(url_for("index"))
-    else:
-        url_data: dict = get_url_data(url)
+
+    url_data: dict = get_url_data(url)
 
     if not url_data:
         flash("Произошла ошибка при проверке", "danger")
         return redirect(url_for("url_show", id=id))
-    else:
-        url_data["url_id"] = id
-        db.add_url_check(url_data)
-        flash("Страница успешно проверена", "success")
-        return redirect(url_for("url_show", id=id))
+
+    url_data["url_id"] = id
+    db.add_url_check(url_data)
+    flash("Страница успешно проверена", "success")
+    return redirect(url_for("url_show", id=id))
