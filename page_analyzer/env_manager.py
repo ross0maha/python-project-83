@@ -6,7 +6,7 @@ load_dotenv()
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 DATABASE_URL = os.getenv("DATABASE_URL")
-REQUEST_TIMEOUT = int(os.getenv("REQUEST_TIMEOUT"))
+REQUEST_TIMEOUT = os.getenv("REQUEST_TIMEOUT")
 
 
 def get_secret_key() -> str:
