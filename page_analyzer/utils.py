@@ -12,20 +12,20 @@ REQUEST_TIMEOUT = get_request_timeout()
 
 
 def normalize_url(url: str) -> str:
-    '''Normalize url to name'''
+    """Normalize url to name"""
     url_parsed = urlparse(url)
     url_name = f"{url_parsed.scheme}://{url_parsed.netloc}"
     return url_name
 
 
 def get_check(request: requests.Response) -> dict:
-    '''
+    """
     Get check data from request
     status_code - http status code
     h1 - h1 tag text
     title - title tag text
     description - description tag content
-    '''
+    """
     soup = BeautifulSoup(request.text, "html.parser")
     h1_tag = soup.find("h1")
     title_tag = soup.find("title")
@@ -35,16 +35,14 @@ def get_check(request: requests.Response) -> dict:
         "status_code": request.status_code,
         "h1": h1_tag.text if h1_tag else "",
         "title": title_tag.text if title_tag else "",
-        "description": (
-            description_tag.get("content") if description_tag else ""
-        ),
+        "description": (description_tag.get("content") if description_tag else ""),
     }
 
     return check
 
 
 def validate_url(url_name: str) -> str:
-    '''Validate url name and return errors'''
+    """Validate url name and return errors"""
     error = None
 
     match url_name:
@@ -61,7 +59,7 @@ def validate_url(url_name: str) -> str:
 
 
 def get_url_data(url: str) -> dict:
-    '''Get url data from request'''
+    """Get url data from request"""
     try:
         request: requests.Response = requests.get(url, timeout=REQUEST_TIMEOUT)
     except requests.RequestException:

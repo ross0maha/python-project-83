@@ -4,13 +4,13 @@ from page_analyzer.env_manager import get_database_url
 
 
 def db_connect() -> object:
-    '''Connect to db'''
+    """Connect to db"""
     conn = psycopg2.connect(get_database_url())
     return conn
 
 
 def get_urls() -> list:
-    '''Get all urls from db'''
+    """Get all urls from db"""
     request = """
                 SELECT DISTINCT ON (urls.id)
                         urls.id AS id,
@@ -31,7 +31,7 @@ def get_urls() -> list:
 
 
 def get_urls_by_id(id: int) -> dict:
-    '''Get url by id'''
+    """Get url by id"""
     request = "SELECT * FROM urls WHERE id = %s"
 
     conn = db_connect()
@@ -41,7 +41,7 @@ def get_urls_by_id(id: int) -> dict:
 
 
 def get_urls_by_name(name: str) -> dict:
-    '''Get url by name'''
+    """Get url by name"""
     request = "SELECT * FROM urls WHERE name = %s"
 
     conn = db_connect()
@@ -51,7 +51,7 @@ def get_urls_by_name(name: str) -> dict:
 
 
 def add_url(name: str) -> None:
-    '''Add url to db'''
+    """Add url to db"""
     request = """
                 INSERT INTO urls (name, created_at)
                 VALUES (%s, NOW())
@@ -63,7 +63,7 @@ def add_url(name: str) -> None:
 
 
 def add_url_check(url_data: dict) -> None:
-    '''Add url check to db'''
+    """Add url check to db"""
     conn = db_connect()
     request = """
                     INSERT INTO url_checks (
@@ -91,7 +91,7 @@ def add_url_check(url_data: dict) -> None:
 
 
 def get_checks_by_url_id(id: int) -> list:
-    '''Get checks by url id'''
+    """Get checks by url id"""
     request = """
                 SELECT * FROM url_checks
                 WHERE url_id = %s

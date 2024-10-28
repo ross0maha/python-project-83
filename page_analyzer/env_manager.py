@@ -10,15 +10,15 @@ REQUEST_TIMEOUT = int(os.getenv("REQUEST_TIMEOUT"))
 
 
 def get_secret_key() -> str:
-    '''Get secret key from .env file'''
+    """Get secret key from .env file"""
     return SECRET_KEY
 
 
 def get_database_url() -> str:
-    '''Get database url from .env file'''
+    """Get database url from .env file"""
     return DATABASE_URL
 
 
 def get_request_timeout() -> int:
-    '''Get request timeout from .env file'''
+    """Get request timeout from .env file"""
     return REQUEST_TIMEOUT
